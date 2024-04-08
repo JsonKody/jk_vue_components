@@ -1,34 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 
-const dropdown = ref(null);
-const button = ref(null);
-const dropdownMenu = ref(null);
-
-
-
-// Funkce pro aktualizaci pozice
-const updatePopoverPosition = async () => {
-  const placement = (binding.arg || "top") as Placement;
-
-  if (el._popover) {
-    await computePosition(el, el._popover, {
-      // Přidáme middleware
-      placement,
-      middleware: [offset(8), flip(), shift({ padding: 8 })],
-    }).then(({ x, y, placement }) => {
-      if (el._popover) {
-        // new placement
-        el._popover.style.transformOrigin = origins[placement];
-      }
-
-      Object.assign(el._popover!.style, {
-        top: `${y}px`,
-        left: `${x}px`,
-      });
-    });
-  }
-};
 </script>
 
 <template>
