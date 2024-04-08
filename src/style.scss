@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .yl {
+    @apply border-4 border-yellow-400;
+  }
+  .rd {
+    @apply border border-red-600;
+  }
+}
+
+:root {
+  background-color: #242424;
+  color: white;
+}
