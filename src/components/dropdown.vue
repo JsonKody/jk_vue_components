@@ -1,30 +1,32 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import { useFloating, offset, flip, shift } from "@floating-ui/vue";
 
+const dropdown_button = ref(null);
+const dropdown_menu = ref(null);
+
+const placement = ref("right");
+const middleware = ref([offset(10), flip(), shift()]);
+
+const { update } = useFloating(dropdown_button, dropdown_menu, {
+  placement,
+  middleware,
+});
 </script>
 
 <template>
   <div ref="dropdown" class="dropdown relative">
-    <button ref="button" class="rd link button relative">button</button>
-    <div ref="dropdown-menu" class="rd dropdown-menu text-black absolute">
+    <button ref="dropdown_button" class="rd link button relative">
+      button
+    </button>
+    <div
+      @click="update"
+      ref="dropdown_menu"
+      class="rd dropdown-menu text-black absolute"
+    >
       <div class="mt-2 px-4 py-2 bg-white rounded shadow-md">dropdown menu</div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.dropdown-menu {
-  top: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: opacity 150ms ease-in-out, visibility 50ms ease-in-out,
-    transform 150ms ease-in-out;
-}
-
-.link:focus + .dropdown-menu,
-.dropdown-menu:hover {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-</style>
+<style lang="scss" scoped></style>
