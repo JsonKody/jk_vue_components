@@ -94,7 +94,9 @@ onMounted(() => {
           'm-2 rounded-md max-h-[calc(100dvh-1rem)]': position != 'fullscreen',
         }"
       >
-        <slot name="content"></slot>
+        <div class="the-modal max-h-full overflow-auto">
+          <slot name="content"></slot>
+        </div>
       </div>
       <div
         class="absolute md:m-3 m-1 p-1 top-0 right-0 w-9 h-9 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
@@ -117,3 +119,30 @@ onMounted(() => {
     </div>
   </teleport>
 </template>
+
+<style scoped>
+/* width */
+
+.the-modal::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5rem;
+  transition: all 0.2s;
+}
+
+/* Track */
+.the-modal::-webkit-scrollbar-track {
+  background: #00000018;
+}
+
+/* Handle */
+.the-modal::-webkit-scrollbar-thumb {
+  background: #00000052;
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+.the-modal::-webkit-scrollbar-thumb:hover {
+  background: #00000086;
+  cursor: pointer;
+}
+</style>

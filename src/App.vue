@@ -21,7 +21,7 @@ const isModalOpen = ref(false);
         <Modal position="fullscreen">
           <template #button>modal s tlacitkem - fullscreen</template>
           <template #content>
-            <div class="overflow-auto max-h-full p-12">
+            <div class="p-8 py-12">
               <div>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
                 quibusdam dolorem at? Libero nisi et nihil. Nobis porro sint
@@ -490,10 +490,10 @@ const isModalOpen = ref(false);
 
         <!-- modal s big image V -->
         <Modal position="center">
-          <template #button>BGIMG_V__button</template>
+          <template #button>BGIMG_V__button s dsd s </template>
           <template #content>
-            <div class="overflow-auto">
-              <img src="/big_image_v.webp" class="rd" alt="velmi vysoky obr" />
+            <div class="rd overflow-y-auto">
+              <!-- <img src="/big_image_v.webp" height="600" alt="velmi vysoky obr" /> -->
             </div>
           </template>
         </Modal>
