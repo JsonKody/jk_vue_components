@@ -119,30 +119,3 @@ onMounted(() => {
     </div>
   </teleport>
 </template>
-
-<style scoped>
-/* width */
-
-.the-modal::-webkit-scrollbar {
-  height: 0.5rem;
-  width: 0.5rem;
-  transition: all 0.2s;
-}
-
-/* Track */
-.the-modal::-webkit-scrollbar-track {
-  background: #00000018;
-}
-
-/* Handle */
-.the-modal::-webkit-scrollbar-thumb {
-  background: #00000052;
-  border-radius: 1rem;
-}
-
-/* Handle on hover */
-.the-modal::-webkit-scrollbar-thumb:hover {
-  background: #00000086;
-  cursor: pointer;
-}
-</style>

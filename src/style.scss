@@ -11,14 +11,13 @@
   }
 }
 
-
-
 :root {
   background-color: #242424;
   color: white;
   width: 100vw;
+}
 
-
+* {
   /* width */
   &::-webkit-scrollbar {
     height: 0.5rem;
@@ -28,18 +27,18 @@
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background: #00000018;
+    background: #ffffff00;
   }
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: #ffffff3f;
+    background: #66666670;
     border-radius: 1rem;
   }
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #00000034;
+    background: #63636383;
     cursor: pointer;
   }
 }
