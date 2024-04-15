@@ -36,11 +36,28 @@ watch(isOpen, (newVal) => {
   if (props.modelValue !== undefined) {
     emit("update:modelValue", newVal);
   }
+
+  if (newVal) {
+    disableScrolling();
+  } else {
+    enableScrolling();
+  }
 });
 
 // Funkce pro přepnutí viditelnosti modálu
 function toggleModal() {
   isOpen.value = !isOpen.value;
+}
+
+function disableScrolling() {
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${window.scrollY}px`;
+}
+
+function enableScrolling() {
+  // When the modal is hidden, we want to remain at the top of the scroll position
+  document.body.style.position = "";
+  document.body.style.top = "";
 }
 
 // Inicializace modálu při montáži
@@ -53,14 +70,15 @@ onMounted(() => {
 
 <template>
   <button @click="toggleModal" v-if="props.showButton" class="relative">
-    <slot name="button">Otevřít</slot>
+    {{ isOpen }}
+    <slot name="button"></slot>
   </button>
 
   <teleport to="body">
     <div
       v-if="isOpen"
       @click="toggleModal"
-      class="fixed inset-0 flex justify-center bg-black bg-opacity-50"
+      class="fixed inset-0 flex justify-center bg-black bg-opacity-50 backdrop-blur-sm"
       :class="{
         'items-center': position == 'center',
         'items-end': position == 'bottom',
@@ -69,22 +87,33 @@ onMounted(() => {
     >
       <div
         @click.stop
-        class="m-2 modal_content bg-white rounded-md text-black overflow-hidden"
+        class="bg-white text-black overflow-hidden"
+        :class="{
+          'md:m-2 md:rounded-md absolute inset-0 max-h-dvh':
+            position == 'fullscreen',
+          'm-2 rounded-md max-h-[calc(100dvh-1rem)]': position != 'fullscreen',
+        }"
       >
         <slot name="content"></slot>
+      </div>
+      <div
+        class="absolute md:m-3 m-1 p-1 top-0 right-0 w-9 h-9 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-x"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M18 6l-12 12" />
+          <path d="M6 6l12 12" />
+        </svg>
       </div>
     </div>
   </teleport>
 </template>
-
-<style lant="scss" scoped>
-.modal_content {
-  max-height: calc(100vh - 1.5rem);
-  max-width: calc(100vw - 1.5rem);
-
-  &/deep/ img {
-    max-height: 100%;
-    object-fit: contain;
-  }
-}
-</style>
