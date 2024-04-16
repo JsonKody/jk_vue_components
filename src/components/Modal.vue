@@ -2,14 +2,13 @@
 import { ref, watch, onMounted } from "vue";
 
 interface Props {
-  modelValue?: boolean; // Použití modelValue místo open pro v-model, volitelné
-  position?: "top" | "bottom" | "center" | "fullscreen"; // Pozice modálu
-  showButton?: boolean; // Příznak, zda zobrazit tlačítko pro ovládání modálu
+  modelValue?: boolean;
+  position?: "top" | "bottom" | "center" | "fullscreen";
+  showButton?: boolean;
 }
 
-// Definování výchozích hodnot pro props
 const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined, // Výchozí hodnota je undefined, protože použití modelValue je volitelné
+  modelValue: undefined,
   position: "center",
   showButton: true,
 });
@@ -18,10 +17,8 @@ const emit = defineEmits<{
   (event: "update:modelValue", value: boolean): void;
 }>();
 
-// Lokální stav pro otevření/zavření modálu, inicializovaný na základě modelValue, pokud je k dispozici
 const isOpen = ref(props.modelValue ?? false);
 
-// Sleduje změny modelValue pro aktualizaci isOpen, pouze pokud je modelValue definováno
 watch(
   () => props.modelValue,
   (newVal) => {
@@ -31,36 +28,16 @@ watch(
   }
 );
 
-// Emituje změnu při otevření/zavření modálu, pouze pokud je modelValue definováno
 watch(isOpen, (newVal) => {
   if (props.modelValue !== undefined) {
     emit("update:modelValue", newVal);
   }
-
-  if (newVal) {
-    disableScrolling();
-  } else {
-    enableScrolling();
-  }
 });
 
-// Funkce pro přepnutí viditelnosti modálu
 function toggleModal() {
   isOpen.value = !isOpen.value;
 }
 
-function disableScrolling() {
-  document.body.style.position = "fixed";
-  document.body.style.top = `-${window.scrollY}px`;
-}
-
-function enableScrolling() {
-  // When the modal is hidden, we want to remain at the top of the scroll position
-  document.body.style.position = "";
-  document.body.style.top = "";
-}
-
-// Inicializace modálu při montáži
 onMounted(() => {
   if (props.modelValue !== undefined) {
     isOpen.value = props.modelValue;
@@ -70,12 +47,12 @@ onMounted(() => {
 
 <template>
   <button @click="toggleModal" v-if="props.showButton" class="relative">
-    {{ isOpen }}
     <slot name="button"></slot>
   </button>
 
   <teleport to="body">
     <div
+      data-modal
       v-if="isOpen"
       @click="toggleModal"
       class="fixed inset-0 flex justify-center bg-black bg-opacity-50 backdrop-blur-sm"
@@ -99,11 +76,10 @@ onMounted(() => {
         </div>
       </div>
       <div
-        class="absolute md:m-3 m-1 p-1 top-0 right-0 w-9 h-9 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
+        class="absolute flex items-center justify-center md:m-3 m-1 top-0 right-0 w-8 h-8 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-x"
           viewBox="0 0 24 24"
           stroke-width="2"
           stroke="currentColor"
@@ -119,3 +95,17 @@ onMounted(() => {
     </div>
   </teleport>
 </template>
+
+<style lang="scss">
+/*
+  Dulezite!!
+  Important!!
+  This code make sure that when there is a least one modal, the body wont scroll
+  but when last modal dissapears body would be scrollable again.
+  (modal must have attribute "data-modal")
+*/
+
+body:has([data-modal]) {
+  overflow: hidden;
+}
+</style>

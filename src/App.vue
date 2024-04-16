@@ -12,6 +12,54 @@ const isModalOpen = ref(false);
       <div class="flex flex-col gap-4">
         <button @click="isModalOpen = true">modal bez tlacitka - TOP</button>
 
+        <!-- modal v modalu -->
+        <Modal position="top">
+          <template #button>matrjoska_MODAL_BUTTON</template>
+          <template #content
+            >modalyyyyy v modaleeeech v
+            <Modal position="bottom">
+              <template #button>matrjoska_MODAL_BUTTON</template>
+              <template #content
+                >modalyyyyy v modaleeeech v v modaleeeech v
+                <Modal position="center">
+                  <template #button>matrjoska_MODAL_BUTTON</template>
+                  <template #content
+                    >modalyyyyy v modaleeeech
+                    <Modal position="fullscreen">
+                      <template #button>matrjoska_MODAL_BUTTON</template>
+                      <template #content
+                        >modalyyyyy v modaleeeech
+                        <Modal position="top">
+                          <template #button>matrjoska_MODAL_BUTTON</template>
+                          <template #content
+                            >modalyyyyy v modaleeeech
+                            <Modal position="bottom">
+                              <template #button
+                                >matrjoska_MODAL_BUTTON</template
+                              >
+                              <template #content
+                                >modalyyyyy v modaleeeech
+                                <Modal position="center">
+                                  <template #button
+                                    >matrjoska_MODAL_BUTTON</template
+                                  >
+                                  <template #content
+                                    >modalyyyyy v modaleeeech
+                                  </template>
+                                </Modal>
+                              </template>
+                            </Modal>
+                          </template>
+                        </Modal>
+                      </template>
+                    </Modal>
+                  </template>
+                </Modal>
+              </template>
+            </Modal>
+          </template>
+        </Modal>
+
         <!-- modal bez tlacitka -->
         <Modal v-model="isModalOpen" position="top" :showButton="false">
           <template #content>modal bez tlacitka</template>
