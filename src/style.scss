@@ -18,28 +18,28 @@
 }
 
 
-// * {
-//   /* width */
-//   &::-webkit-scrollbar {
-//     height: 0.5rem;
-//     width: 0.5rem;
-//     transition: all 0.2s;
-//   }
+* {
+  /* width */
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+    width: 0.5rem;
+    transition: all 0.2s;
+  }
 
-// //   /* Track */
-//   &::-webkit-scrollbar-track {
-//     background: #ffffff00;
-//   }
+//   /* Track */
+  &::-webkit-scrollbar-track {
+    background: #ffffff00;
+  }
 
-// //   /* Handle */
-//   &::-webkit-scrollbar-thumb {
-//     background: #66666670;
-//     border-radius: 1rem;
-//   }
+//   /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #66666670;
+    border-radius: 1rem;
+  }
 
-// //   /* Handle on hover */
-//   &::-webkit-scrollbar-thumb:hover {
-//     background: #63636383;
-//     cursor: pointer;
-//   }
-// }
+//   /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #63636383;
+    cursor: pointer;
+  }
+}

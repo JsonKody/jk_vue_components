@@ -71,9 +71,9 @@ onMounted(() => {
           'm-2 rounded-md max-h-[calc(100dvh-1rem)]': position != 'fullscreen',
         }"
       >
-        <div class="the-modal max-h-full overflow-auto">
+        <!-- <div class="the-modal max-h-full overflow-auto"> -->
           <slot name="content"></slot>
-        </div>
+        <!-- </div> -->
       </div>
       <div
         class="absolute flex items-center justify-center md:m-3 m-1 top-0 right-0 w-8 h-8 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"

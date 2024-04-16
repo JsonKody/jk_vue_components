@@ -69,7 +69,7 @@ const isModalOpen = ref(false);
         <Modal position="fullscreen">
           <template #button>modal s tlacitkem - fullscreen</template>
           <template #content>
-            <div class="p-8 py-12">
+            <div class="p-8 py-12 max-h-full overflow-auto">
               <div>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
                 quibusdam dolorem at? Libero nisi et nihil. Nobis porro sint
