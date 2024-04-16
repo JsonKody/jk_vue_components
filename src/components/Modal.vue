@@ -5,12 +5,14 @@ interface Props {
   modelValue?: boolean;
   position?: "top" | "bottom" | "center" | "fullscreen";
   showButton?: boolean;
+  scrollable?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: undefined,
   position: "center",
   showButton: true,
+  scrollable: true
 });
 
 const emit = defineEmits<{
@@ -51,6 +53,7 @@ onMounted(() => {
   </button>
 
   <teleport to="body">
+    <transition>
     <div
       data-modal
       v-if="isOpen"
@@ -64,16 +67,17 @@ onMounted(() => {
     >
       <div
         @click.stop
-        class="bg-white text-black overflow-hidden"
+        class="bg-white text-black"
         :class="{
           'md:m-2 md:rounded-md absolute inset-0 max-h-dvh':
             position == 'fullscreen',
           'm-2 rounded-md max-h-[calc(100dvh-1rem)]': position != 'fullscreen',
+          'overflow-auto': props.scrollable,
+          'overflow-hidden': !props.scrollable
         }"
       >
-        <!-- <div class="the-modal max-h-full overflow-auto"> -->
           <slot name="content"></slot>
-        <!-- </div> -->
+    
       </div>
       <div
         class="absolute flex items-center justify-center md:m-3 m-1 top-0 right-0 w-8 h-8 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
@@ -93,6 +97,7 @@ onMounted(() => {
         </svg>
       </div>
     </div>
+    </transition>
   </teleport>
 </template>
 
@@ -107,5 +112,16 @@ onMounted(() => {
 
 body:has([data-modal]) {
   overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.2s ease-in-out
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

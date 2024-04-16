@@ -67,9 +67,9 @@ const isModalOpen = ref(false);
 
         <!-- modal fullscreen -->
         <Modal position="fullscreen">
-          <template #button>modal s tlacitkem - fullscreen</template>
+          <template #button>modal s tlacitkem - fullscreen (scrollable: true[default])</template>
           <template #content>
-            <div class="p-8 py-12 max-h-full overflow-auto">
+            <div class="yl p-8 py-12">
               <div>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
                 quibusdam dolorem at? Libero nisi et nihil. Nobis porro sint
@@ -486,8 +486,8 @@ const isModalOpen = ref(false);
         </Modal>
 
         <!-- modal fullscreen -->
-        <Modal position="fullscreen">
-          <template #button>modal s tlacitkem - fullscreen</template>
+        <Modal position="fullscreen" :scrollable="false">
+          <template #button>modal s tlacitkem - fullscreen  (scrollable: false)</template>
           <template #content>
             <div class="p-8 py-12">
               <div>
