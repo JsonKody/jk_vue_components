@@ -5,7 +5,7 @@ interface Props {
   modelValue?: boolean;
   position?: "top" | "bottom" | "center" | "fullscreen";
   showButton?: boolean;
-  scrollable?: boolean
+  scroll?: boolean
   blur?: boolean
 }
 
@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<Props>(), {
   modelValue: undefined,
   position: "center",
   showButton: true,
-  scrollable: true,
+  scroll: true,
   blur: false
 });
 
@@ -42,15 +42,32 @@ function toggleModal() {
   isOpen.value = !isOpen.value;
 }
 
+const computedScrollbarWidth = ref(0)
+
+function computeScrollbarWidth() {
+  const bodyStyle = window.getComputedStyle(document.body);
+  const marginRight = parseInt(bodyStyle.marginRight);
+
+  if (marginRight > 0) {
+    return marginRight;
+  } else {
+    return window.innerWidth - document.documentElement.clientWidth;
+  }
+}
+
 onMounted(() => {
   if (props.modelValue !== undefined) {
     isOpen.value = props.modelValue;
   }
+
+  
+  computedScrollbarWidth.value = computeScrollbarWidth()
+  document.documentElement.style.setProperty('--width', computedScrollbarWidth.value + 'px');
 });
 </script>
 
 <template>
-  <button @click="toggleModal" v-if="props.showButton" class="relative">
+  <button @click="toggleModal" v-if="props.showButton" class="relative">{{ computedScrollbarWidth }}
     <slot name="button"></slot>
   </button>
 
@@ -75,10 +92,10 @@ onMounted(() => {
           'md:m-2 md:rounded-md absolute inset-0 max-h-dvh':
             position == 'fullscreen',
           'm-2 rounded-md max-h-[calc(100dvh-1rem)]': position != 'fullscreen',
-          'overflow-auto': props.scrollable,
-          'overflow-hidden': !props.scrollable
+          'overflow-auto': props.scroll,
+          'overflow-hidden': !props.scroll
         }"
-      >
+      >{{ computedScrollbarWidth }}
           <slot name="content"></slot>
     
       </div>
@@ -109,18 +126,14 @@ onMounted(() => {
   Dulezite!!
   Important!!
   This code make sure that when there is a least one modal, the body wont scroll
-  but when last modal dissapears body would be scrollable again.
+  but when last modal dissapears body would be scroll again.
   (modal must have attribute "data-modal")
 */
 
+
 body:has([data-modal]) {
   overflow: hidden;
-}
-
-@media (min-width: 640px) {
-   body:has([data-modal]) {
-      margin-right: 0.5rem;
-   }
+  margin-right: var(--width);
 }
 
 
