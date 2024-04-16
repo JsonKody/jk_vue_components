@@ -52,10 +52,8 @@ function computeScrollbarWidth() {
   const marginRight = parseInt(bodyStyle.marginRight);
 
   if (marginRight > 0) {
-    console.log('je margin')
     return marginRight;
   } else {
-    console.log('je scrollbar')
     return window.innerWidth - document.documentElement.clientWidth;
   }
 }
