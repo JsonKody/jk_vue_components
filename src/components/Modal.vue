@@ -6,13 +6,15 @@ interface Props {
   position?: "top" | "bottom" | "center" | "fullscreen";
   showButton?: boolean;
   scrollable?: boolean
+  blur?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: undefined,
   position: "center",
   showButton: true,
-  scrollable: true
+  scrollable: true,
+  blur: true
 });
 
 const emit = defineEmits<{
@@ -58,11 +60,12 @@ onMounted(() => {
       data-modal
       v-if="isOpen"
       @click="toggleModal"
-      class="fixed inset-0 flex justify-center bg-black bg-opacity-50 backdrop-blur-sm"
+      class="fixed inset-0 flex justify-center bg-black bg-opacity-50"
       :class="{
         'items-center': position == 'center',
         'items-end': position == 'bottom',
         'items-start': position == 'top',
+        'backdrop-blur-sm': props.blur
       }"
     >
       <div
@@ -115,9 +118,14 @@ body:has([data-modal]) {
   margin-right: 0.5rem;
 }
 
+
+
+/**
+Vue transition
+ */
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.2s ease-in-out
+  transition: opacity 150ms ease-in-out
 }
 
 .v-enter-from,
