@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<Props>(), {
   position: "center",
   showButton: true,
   scrollable: true,
-  blur: true
+  blur: false
 });
 
 const emit = defineEmits<{
