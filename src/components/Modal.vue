@@ -115,7 +115,12 @@ onMounted(() => {
 
 body:has([data-modal]) {
   overflow: hidden;
-  margin-right: 0.5rem;
+}
+
+@media (min-width: 640px) {
+   body:has([data-modal]) {
+      margin-right: 0.5rem;
+   }
 }
 
 
@@ -125,11 +130,11 @@ Vue transition
  */
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 150ms ease-in-out
+   transition: opacity 150ms ease-in-out
 }
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+   opacity: 0;
 }
 </style>

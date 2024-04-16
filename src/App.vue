@@ -4,6 +4,7 @@ import Modal from "./components/Modal.vue";
 import { ref } from "vue";
 
 const isModalOpen = ref(false);
+const isBlurred = ref(true)
 </script>
 
 <template>
@@ -13,33 +14,39 @@ const isModalOpen = ref(false);
         <button @click="isModalOpen = true">modal bez tlacitka - TOP</button>
 
         <!-- modal v modalu -->
-        <Modal position="top">
+        <div class="flex">
+
+          <label for="blurred">matrjoska modal - is blurred</label>
+        <input type="checkbox" id="blurred" v-model="isBlurred" />
+      </div>
+        
+        <Modal position="top" :blur="isBlurred">
           <template #button>matrjoska_MODAL_BUTTON</template>
           <template #content
             >modalyyyyy v modaleeeech v
-            <Modal position="bottom">
+            <Modal position="bottom" :blur="isBlurred">
               <template #button>matrjoska_MODAL_BUTTON</template>
               <template #content
                 >modalyyyyy v modaleeeech v v modaleeeech v
-                <Modal position="center">
+                <Modal position="center" :blur="isBlurred">
                   <template #button>matrjoska_MODAL_BUTTON</template>
                   <template #content
                     >modalyyyyy v modaleeeech
-                    <Modal position="fullscreen">
+                    <Modal position="fullscreen" :blur="isBlurred">
                       <template #button>matrjoska_MODAL_BUTTON</template>
                       <template #content
                         >modalyyyyy v modaleeeech
-                        <Modal position="top">
+                        <Modal position="top" :blur="isBlurred">
                           <template #button>matrjoska_MODAL_BUTTON</template>
                           <template #content
                             >modalyyyyy v modaleeeech
-                            <Modal position="bottom">
+                            <Modal position="bottom" :blur="isBlurred">
                               <template #button
                                 >matrjoska_MODAL_BUTTON</template
                               >
                               <template #content
                                 >modalyyyyy v modaleeeech
-                                <Modal position="center">
+                                <Modal position="center" :blur="isBlurred">
                                   <template #button
                                     >matrjoska_MODAL_BUTTON</template
                                   >
