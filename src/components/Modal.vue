@@ -75,6 +75,7 @@ onMounted(() => {
           <slot name="content"></slot>
         </div>
       </div>
+
       <div
         class="absolute flex items-center justify-center md:m-3 m-1 top-0 right-0 w-8 h-8 bg-black rounded-full bg-opacity-20 transition duration-150 hover:bg-opacity-50 cursor-pointer"
       >
