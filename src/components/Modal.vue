@@ -36,38 +36,46 @@ watch(isOpen, (newVal) => {
   if (props.modelValue !== undefined) {
     emit("update:modelValue", newVal);
   }
+
+  if(isOpen.value) {
+    setScrollbarWidthVar()
+  }
 });
 
 function toggleModal() {
   isOpen.value = !isOpen.value;
 }
 
-const computedScrollbarWidth = ref(0)
 
 function computeScrollbarWidth() {
   const bodyStyle = window.getComputedStyle(document.body);
   const marginRight = parseInt(bodyStyle.marginRight);
 
   if (marginRight > 0) {
+    console.log('je margin')
     return marginRight;
   } else {
+    console.log('je scrollbar')
     return window.innerWidth - document.documentElement.clientWidth;
   }
 }
+
+function setScrollbarWidthVar() {
+  const width = computeScrollbarWidth()
+  document.documentElement.style.setProperty('--scrollbar-width', width + 'px');
+}
+
+
 
 onMounted(() => {
   if (props.modelValue !== undefined) {
     isOpen.value = props.modelValue;
   }
-
-  
-  computedScrollbarWidth.value = computeScrollbarWidth()
-  document.documentElement.style.setProperty('--width', computedScrollbarWidth.value + 'px');
 });
 </script>
 
 <template>
-  <button @click="toggleModal" v-if="props.showButton" class="relative">{{ computedScrollbarWidth }}
+  <button @click="toggleModal" v-if="props.showButton" class="relative">
     <slot name="button"></slot>
   </button>
 
@@ -95,7 +103,7 @@ onMounted(() => {
           'overflow-auto': props.scroll,
           'overflow-hidden': !props.scroll
         }"
-      >{{ computedScrollbarWidth }}
+      >
           <slot name="content"></slot>
     
       </div>
@@ -133,7 +141,7 @@ onMounted(() => {
 
 body:has([data-modal]) {
   overflow: hidden;
-  margin-right: var(--width);
+  margin-right: var(--scrollbar-width);
 }
 
 
